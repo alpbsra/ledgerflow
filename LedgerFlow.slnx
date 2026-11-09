@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LedgerFlow.Host/LedgerFlow.Host.csproj" />
+  </Folder>
+</Solution>

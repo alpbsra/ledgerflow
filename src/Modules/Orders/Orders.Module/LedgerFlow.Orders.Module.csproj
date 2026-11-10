@@ -4,6 +4,9 @@
     <ProjectReference Include="..\..\..\LedgerFlow.SharedKernel\LedgerFlow.SharedKernel.csproj" />
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
+  </ItemGroup>
   <PropertyGroup>
     <RootNamespace>LedgerFlow.Orders</RootNamespace>
   </PropertyGroup>

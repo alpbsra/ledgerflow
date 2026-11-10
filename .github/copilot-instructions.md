@@ -21,7 +21,7 @@ Portfolio project, built as a modular monolith that is later split into services
 - One Postgres schema and one DbContext per module.
 - Money is a value object (amount + currency). Never use double or float for money.
 - Module namespaces avoid reserved keywords: use `LedgerFlow.Orders`, not `LedgerFlow.Orders.Module` (analyzer rule CA1716). The assembly keeps the `.Module` suffix.
-
+- Use EF Core and Npgsql packages whose major version matches the .NET target (10.x for net10.0). Do not install 11.x packages.
 
 
 ## Working rules

@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\Orders.Contracts\LedgerFlow.Orders.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\LedgerFlow.SharedKernel\LedgerFlow.SharedKernel.csproj" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <PropertyGroup>
+    <RootNamespace>LedgerFlow.Orders</RootNamespace>
+  </PropertyGroup>
+</Project>

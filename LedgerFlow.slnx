@@ -1,5 +1,14 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/LedgerFlow.Host/LedgerFlow.Host.csproj" />
+    <Project Path="src/LedgerFlow.SharedKernel/LedgerFlow.SharedKernel.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/" />
+  <Folder Name="/src/Modules/Orders/" />
+  <Folder Name="/src/Modules/Orders/Orders.Contracts/">
+    <Project Path="src/Modules/Orders/Orders.Contracts/LedgerFlow.Orders.Contracts.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Orders/Orders.Module/">
+    <Project Path="src/Modules/Orders/Orders.Module/LedgerFlow.Orders.Module.csproj" />
   </Folder>
 </Solution>

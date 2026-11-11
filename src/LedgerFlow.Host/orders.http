@@ -1,0 +1,25 @@
+@host = http://localhost:5165
+
+### Create an order
+POST {{host}}/orders
+Content-Type: application/json
+
+{
+  "totalAmount": 125.50,
+  "currency": "eur"
+}
+
+### Get an order (paste the id from the response above)
+GET {{host}}/orders/01a1ca91-5ac7-7fad-a4db-b14f973e22c6
+
+### Invalid order (should return 400)
+POST {{host}}/orders
+Content-Type: application/json
+
+{
+  "totalAmount": -5,
+  "currency": "EU"
+}
+
+### Order that doesn't exist (should return 404)
+GET {{host}}/orders/00000000-0000-0000-0000-000000000000

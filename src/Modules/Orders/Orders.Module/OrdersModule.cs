@@ -1,4 +1,5 @@
-﻿using LedgerFlow.Orders.Infrastructure;
+﻿using LedgerFlow.Orders.Api;
+using LedgerFlow.Orders.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -27,9 +28,12 @@ public static class OrdersModule
 
     public static IEndpointRouteBuilder MapOrdersEndpoints(this IEndpointRouteBuilder app)
     {
+        ArgumentNullException.ThrowIfNull(app);
+
         var group = app.MapGroup("/orders").WithTags("Orders");
 
         group.MapGet("/ping", () => Results.Ok(new { module = "orders", status = "alive" }));
+        OrderEndpoints.Map(group);
 
         return app;
     }

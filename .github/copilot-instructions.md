@@ -36,6 +36,7 @@ Portfolio project, built as a modular monolith that is later split into services
 
 - Warnings are errors. Fix them, do not suppress them.
 
+- Never commit directly to `main`. Use a short-lived branch named feature/..., fix/..., docs/... or chore/..., and open a pull request.
 
 
 ## Learning mode

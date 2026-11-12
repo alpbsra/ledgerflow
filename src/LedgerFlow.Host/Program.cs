@@ -4,7 +4,7 @@ using LedgerFlow.Payments;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOrdersModule(builder.Configuration);
-builder.Services.AddPaymentsModule();
+builder.Services.AddPaymentsModule(builder.Configuration);
 
 var app = builder.Build();
 

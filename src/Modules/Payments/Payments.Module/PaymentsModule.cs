@@ -1,7 +1,10 @@
 ﻿
+using LedgerFlow.Payments.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LedgerFlow.Payments;
@@ -9,8 +12,16 @@ namespace LedgerFlow.Payments;
 public static class PaymentsModule
 {
     public static IServiceCollection AddPaymentsModule(
-        this IServiceCollection services)
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
+        var connectionString = configuration.GetConnectionString("Postgres")
+            ?? throw new InvalidOperationException("Connection string 'Postgres' is not configured.");
+
+        services.AddDbContext<PaymentsDbContext>(options =>
+            options.UseNpgsql(
+                connectionString,
+                npgsql => npgsql.MigrationsHistoryTable("__EFMigrationsHistory", PaymentsDbContext.Schema)));
         return services;
     }
 

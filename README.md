@@ -78,9 +78,12 @@ ledgerflow/
    ```powershell
    $env:ASPNETCORE_ENVIRONMENT = "Development"
    dotnet ef database update --project src/Modules/Orders/Orders.Module --startup-project src/LedgerFlow.Host
+dotnet ef database update --project src/Modules/Orders/Orders.Module --startup-project src/LedgerFlow.Host --context OrdersDbContext
+dotnet ef database update --project src/Modules/Payments/Payments.Module --startup-project src/LedgerFlow.Host --context PaymentsDbContext
    ```
 
    Each module owns its own schema and migration history, so this creates the `orders` schema. Further modules will add their own command here.
+
 
 4. **Run the API**
 
@@ -100,6 +103,14 @@ ledgerflow/
 docker compose stop          # stop the database, keep the data
 docker compose down -v       # remove the container and delete the data
 ```
+
+### Run the tests
+
+```powershell
+dotnet test
+```
+
+Docker must be running: the integration tests start a throwaway PostgreSQL container with Testcontainers. The `global.json` file selects the Microsoft.Testing.Platform runner, which xUnit v3 uses.
 
 ### Notes
 
@@ -136,6 +147,10 @@ POST /orders
 - EF Core and Npgsql package versions match the .NET major version.
 
 - Changes go through short-lived branches and pull requests. `main` is always working; CI must pass before merging, and merges are squashed.
+
+## Known limitations
+
+- Payments does not verify that the referenced order exists. The two modules share no foreign key or code reference by design (see ADR 0001); the check will be added through a contract or an event.
 
 ## How AI is used in this project
 

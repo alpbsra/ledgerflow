@@ -37,4 +37,15 @@ public static class OrdersModule
 
         return app;
     }
+
+    public static async Task MigrateOrdersDatabaseAsync(
+    this IServiceProvider services,
+    CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(services);
+
+        await using var scope = services.CreateAsyncScope();
+        var db = scope.ServiceProvider.GetRequiredService<OrdersDbContext>();
+        await db.Database.MigrateAsync(cancellationToken);
+    }
 }

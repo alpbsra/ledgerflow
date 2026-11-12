@@ -1,0 +1,27 @@
+@host = http://localhost:5165
+
+### Create a payment (use any GUID as the order id for now)
+POST {{host}}/payments
+Content-Type: application/json
+
+{
+  "orderId": "0197a000-0000-7000-8000-000000000001",
+  "amount": 125.50,
+  "currency": "eur"
+}
+
+### Get a payment (paste the id from the response above)
+GET {{host}}/payments/01a1d015-629b-7933-8efa-b59abc310bca
+
+### Invalid payment (should return 400)
+POST {{host}}/payments
+Content-Type: application/json
+
+{
+  "orderId": "00000000-0000-0000-0000-000000000000",
+  "amount": 0,
+  "currency": "EU"
+}
+
+### Unknown payment (should return 404)
+GET {{host}}/payments/00000000-0000-0000-0000-000000000000

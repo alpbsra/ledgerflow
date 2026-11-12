@@ -48,7 +48,5 @@ will be extracted into separate services once the core flow works.
 
 \- Extraction later is mostly mechanical, since modules already communicate only through contracts.
 
-
-
-
+\- Boundaries are enforced by LedgerFlow.ArchitectureTests, which checks assembly references
 

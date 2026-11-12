@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3.mtp-v2" Version="4.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\LedgerFlow.SharedKernel\LedgerFlow.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Orders\Orders.Contracts\LedgerFlow.Orders.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Orders\Orders.Module\LedgerFlow.Orders.Module.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Payments\Payments.Contracts\LedgerFlow.Payments.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Payments\Payments.Module\LedgerFlow.Payments.Module.csproj" />
+  </ItemGroup>
+
+</Project>

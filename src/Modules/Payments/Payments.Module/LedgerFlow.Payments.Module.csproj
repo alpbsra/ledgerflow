@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Payments.Contracts\LedgerFlow.Payments.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\LedgerFlow.SharedKernel\LedgerFlow.SharedKernel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <RootNamespace>LedgerFlow.Payments</RootNamespace>
+  </PropertyGroup>
+
+</Project>

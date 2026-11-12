@@ -11,4 +11,11 @@
   <Folder Name="/src/Modules/Orders/Orders.Module/">
     <Project Path="src/Modules/Orders/Orders.Module/LedgerFlow.Orders.Module.csproj" />
   </Folder>
+  <Folder Name="/src/Modules/Payments/" />
+  <Folder Name="/src/Modules/Payments/Payments.Contracts/">
+    <Project Path="src/Modules/Payments/Payments.Contracts/LedgerFlow.Payments.Contracts.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Payments/Payments.Module/">
+    <Project Path="src/Modules/Payments/Payments.Module/LedgerFlow.Payments.Module.csproj" />
+  </Folder>
 </Solution>

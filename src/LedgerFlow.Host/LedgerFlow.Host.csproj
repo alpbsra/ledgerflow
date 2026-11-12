@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <ItemGroup>
     <ProjectReference Include="..\Modules\Orders\Orders.Module\LedgerFlow.Orders.Module.csproj" />
+    <ProjectReference Include="..\Modules\Payments\Payments.Module\LedgerFlow.Payments.Module.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.*">

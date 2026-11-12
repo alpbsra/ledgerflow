@@ -84,6 +84,7 @@ dotnet ef database update --project src/Modules/Payments/Payments.Module --start
 
    Each module owns its own schema and migration history, so this creates the `orders` schema. Further modules will add their own command here.
 
+
 4. **Run the API**
 
    ```powershell
@@ -102,6 +103,14 @@ dotnet ef database update --project src/Modules/Payments/Payments.Module --start
 docker compose stop          # stop the database, keep the data
 docker compose down -v       # remove the container and delete the data
 ```
+
+### Run the tests
+
+```powershell
+dotnet test
+```
+
+Docker must be running: the integration tests start a throwaway PostgreSQL container with Testcontainers. The `global.json` file selects the Microsoft.Testing.Platform runner, which xUnit v3 uses.
 
 ### Notes
 

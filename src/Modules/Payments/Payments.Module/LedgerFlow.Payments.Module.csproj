@@ -13,10 +13,6 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="API\" />
-  </ItemGroup>
-
   <PropertyGroup>
     <RootNamespace>LedgerFlow.Payments</RootNamespace>
   </PropertyGroup>

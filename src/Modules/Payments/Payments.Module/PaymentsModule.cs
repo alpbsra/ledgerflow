@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using LedgerFlow.Payments.API;
 
 namespace LedgerFlow.Payments;
 
@@ -33,6 +34,7 @@ public static class PaymentsModule
         var group = app.MapGroup("/payments").WithTags("Payments");
 
         group.MapGet("/ping", () => Results.Ok(new { module = "payments", status = "alive" }));
+        PaymentEndpoints.Map(group);
 
         return app;
     }

@@ -18,4 +18,7 @@
   <Folder Name="/src/Modules/Payments/Payments.Module/">
     <Project Path="src/Modules/Payments/Payments.Module/LedgerFlow.Payments.Module.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/LedgerFlow.IntegrationTests/LedgerFlow.IntegrationTests.csproj" />
+  </Folder>
 </Solution>

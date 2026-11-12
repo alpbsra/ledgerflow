@@ -38,4 +38,15 @@ public static class PaymentsModule
 
         return app;
     }
+
+    public static async Task MigratePaymentsDatabaseAsync(
+    this IServiceProvider services,
+    CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(services);
+
+        await using var scope = services.CreateAsyncScope();
+        var db = scope.ServiceProvider.GetRequiredService<PaymentsDbContext>();
+        await db.Database.MigrateAsync(cancellationToken);
+    }
 }

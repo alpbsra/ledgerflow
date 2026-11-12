@@ -13,3 +13,5 @@ app.MapOrdersEndpoints();
 app.MapPaymentsEndpoints();
 
 app.Run();
+
+public partial class Program;

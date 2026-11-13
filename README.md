@@ -1,4 +1,5 @@
 # LedgerFlow
+![ci](https://github.com/alpbsra/ledgerflow/actions/workflows/ci.yml/badge.svg)
 
 A payment orchestration platform: customers place orders, payments are processed through a mock provider, and every money movement is recorded in an immutable double-entry ledger. A fulfillment step adds a logistics flavor.
 

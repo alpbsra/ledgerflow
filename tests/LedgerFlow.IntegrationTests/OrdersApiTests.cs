@@ -29,8 +29,6 @@ public sealed class OrdersApiTests(LedgerFlowFactory factory)
 
         var fetched = await _client.GetFromJsonAsync<OrderDto>($"/orders/{created.Id}", ct);
         Assert.Equal(created, fetched);
-
-
     }
 
     [Fact]

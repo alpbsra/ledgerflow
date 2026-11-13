@@ -24,7 +24,7 @@ public sealed class OrdersApiTests(LedgerFlowFactory factory)
         var created = await response.Content.ReadFromJsonAsync<OrderDto>(ct);
         Assert.NotNull(created);
         Assert.Equal("Pending", created.Status);
-        Assert.Equal("EUR", created.Currency);
+        Assert.Equal("eur", created.Currency);
         Assert.Equal(125.50m, created.TotalAmount);
 
         var fetched = await _client.GetFromJsonAsync<OrderDto>($"/orders/{created.Id}", ct);

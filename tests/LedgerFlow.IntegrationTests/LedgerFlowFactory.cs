@@ -16,7 +16,7 @@ public sealed class LedgerFlowFactory : WebApplicationFactory<Program>, IAsyncLi
 
         // Read by Program.cs when the host is built (first use of Services or CreateClient).
         Environment.SetEnvironmentVariable(
-            "ConnectionStrings__Postgres",
+            "Orders__Database__ConnectionString",
             _postgres.GetConnectionString());
 
         await Services.MigrateOrdersDatabaseAsync();

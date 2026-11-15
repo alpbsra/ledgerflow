@@ -119,6 +119,43 @@ Docker must be running: the integration tests start a throwaway PostgreSQL conta
 
 - If port 5432 is already in use on your machine, change the port mapping in `docker-compose.yml` and the connection string in `appsettings.Development.json` to match.
 
+## Configuration
+
+Each module owns its own settings section and validates it at startup. If a
+required value is missing, the app **refuses to start** and names the key.
+
+| Key | Required | Purpose |
+|---|---|---|
+| `Orders:Database:ConnectionString` | Yes | Postgres connection for the Orders module |
+| `Payments:Database:ConnectionString` | Yes | Postgres connection for the Payments module |
+
+Both point at the same database today, with separate schemas (see ADR 0001).
+
+In environments other than Development, set them as environment variables.
+`:` becomes `__`:
+
+```powershell
+$env:Orders__Database__ConnectionString = "..."
+$env:Payments__Database__ConnectionString = "..."
+```
+
+Never commit real secrets. `appsettings.Development.json` holds throwaway local values only.
+
+## Logging
+
+Logs are structured JSON on the console outside Development. In Development
+they use a readable single-line format. Every line written during a request
+carries the request's `TraceId`.
+
+To see the JSON format locally:
+
+```powershell
+$env:Logging__Console__FormatterName = "json"
+dotnet run --project src/LedgerFlow.Host
+```
+
+Log messages for domain events use `[LoggerMessage]` source generation. Event ids: 1000s for Orders, 2000s for Payments.
+
 ## API
 
 | Method | Path | Description | Responses |

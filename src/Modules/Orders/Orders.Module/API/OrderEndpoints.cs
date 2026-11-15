@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace LedgerFlow.Orders.Api;
 
@@ -20,6 +21,7 @@ internal static class OrderEndpoints
     private static async Task<IResult> CreateOrderAsync(
         CreateOrderRequest request,
         OrdersDbContext db,
+        ILoggerFactory loggerFactory,
         CancellationToken cancellationToken)
     {
         var errors = Validate(request);
@@ -32,6 +34,9 @@ internal static class OrderEndpoints
 
         db.Orders.Add(order);
         await db.SaveChangesAsync(cancellationToken);
+
+        var logger = loggerFactory.CreateLogger("LedgerFlow.Orders");
+        OrderLog.OrderCreated(logger, order.Id, order.Status);
 
         return Results.CreatedAtRoute("GetOrder", new { id = order.Id }, ToResponse(order));
     }

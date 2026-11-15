@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace LedgerFlow.Orders;
 
@@ -15,13 +16,22 @@ public static class OrdersModule
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("Postgres")
-            ?? throw new InvalidOperationException("Connection string 'Postgres' is not configured.");
+        ArgumentNullException.ThrowIfNull(services);
+        ArgumentNullException.ThrowIfNull(configuration);
 
-        services.AddDbContext<OrdersDbContext>(options =>
+        services.AddOptions<OrdersDatabaseOptions>()
+            .Bind(configuration.GetSection(OrdersDatabaseOptions.SectionName))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+        services.AddDbContext<OrdersDbContext>((serviceProvider, options) =>
+        {
+            var database = serviceProvider.GetRequiredService<IOptions<OrdersDatabaseOptions>>().Value;
+
             options.UseNpgsql(
-                connectionString,
-                npgsql => npgsql.MigrationsHistoryTable("__EFMigrationsHistory", OrdersDbContext.Schema)));
+                database.ConnectionString,
+                npgsql => npgsql.MigrationsHistoryTable("__EFMigrationsHistory", OrdersDbContext.Schema));
+        });
 
         return services;
     }

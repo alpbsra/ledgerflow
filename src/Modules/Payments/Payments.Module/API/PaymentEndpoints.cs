@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace LedgerFlow.Payments.API;
 
@@ -19,6 +20,7 @@ internal static class PaymentEndpoints
     private static async Task<IResult> CreatePaymentAsync(
         CreatePaymentRequest request,
         PaymentsDbContext db,
+        ILoggerFactory loggerFactory,
         CancellationToken cancellationToken)
     {
         var errors = Validate(request);
@@ -29,6 +31,10 @@ internal static class PaymentEndpoints
         var payment = Payment.Create(request.OrderId, request.Amount, request.Currency);
         db.Payments.Add(payment);
         await db.SaveChangesAsync(cancellationToken);
+
+        var logger = loggerFactory.CreateLogger("LedgerFlow.Payments");
+        PaymentLog.PaymentCreated(logger, payment.Id, payment.Status);
+
         return Results.CreatedAtRoute("GetPayment", new { id = payment.Id }, ToResponse(payment));
     }
 

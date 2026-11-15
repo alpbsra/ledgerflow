@@ -19,6 +19,10 @@ public sealed class LedgerFlowFactory : WebApplicationFactory<Program>, IAsyncLi
             "Orders__Database__ConnectionString",
             _postgres.GetConnectionString());
 
+        Environment.SetEnvironmentVariable(
+           "Payments__Database__ConnectionString",
+           _postgres.GetConnectionString());
+
         await Services.MigrateOrdersDatabaseAsync();
         await Services.MigratePaymentsDatabaseAsync();
     }

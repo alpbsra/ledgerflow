@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using LedgerFlow.Payments.API;
+using Microsoft.Extensions.Options;
 
 namespace LedgerFlow.Payments;
 
@@ -16,13 +17,22 @@ public static class PaymentsModule
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("Postgres")
-            ?? throw new InvalidOperationException("Connection string 'Postgres' is not configured.");
+        ArgumentNullException.ThrowIfNull(services);
+        ArgumentNullException.ThrowIfNull(configuration);
 
-        services.AddDbContext<PaymentsDbContext>(options =>
+        services.AddOptions<PaymentsDatabaseOptions>()
+            .Bind(configuration.GetSection(PaymentsDatabaseOptions.SectionName))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+        services.AddDbContext<PaymentsDbContext>((serviceProvider, options) =>
+        {
+            var databaseOptions = serviceProvider.GetRequiredService<IOptions<PaymentsDatabaseOptions>>().Value;
+
             options.UseNpgsql(
-                connectionString,
-                npgsql => npgsql.MigrationsHistoryTable("__EFMigrationsHistory", PaymentsDbContext.Schema)));
+                databaseOptions.ConnectionString,
+                npgsql => npgsql.MigrationsHistoryTable("__EFMigrationsHistory", PaymentsDbContext.Schema));
+        });
         return services;
     }
 
